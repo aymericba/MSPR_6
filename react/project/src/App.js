@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 
-function App() {
+const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'login':
+        return <Login />;
+      case 'register':
+        return <Register />;
+      default:
+        return <Home onLogin={() => setCurrentPage('login')} onRegister={() => setCurrentPage('register')} />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {renderPage()}
     </div>
   );
-}
+};
 
 export default App;
